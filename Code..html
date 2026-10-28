@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Khu lưu trữ cheatsheet</title>
+<title>Kho tài liệu code</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -879,19 +879,195 @@ html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + var(--bar-h) + 2
   button { display: none !important; }
   .pick input, .r-check input { display: none !important; }
 }
+
+/* Giao diện đọc lâu: tương phản vừa phải, màu nhấn tiết chế và hỗ trợ giao diện hệ thống */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --ink: #28313c;
+  --muted: #647181;
+  --line: #dce2e9;
+  --accent: #536f82;
+  --accent-soft: #e8eef2;
+  --on-accent: #ffffff;
+  --code-bg: #f1f4f7;
+  --code-ink: #28313c;
+  --warn-bg: #fbf5e8;
+  --warn-ink: #665226;
+  --green: #60806d;
+  --now: #9b8657;
+  --t-lang: #5a7180;
+  --t-lib: #5a7180;
+  --t-tool: #5a7180;
+  --t-topic: #5a7180;
+  --pal-1: #5a7180; --pal-2: #5a7180; --pal-3: #5a7180; --pal-4: #5a7180;
+  --pal-5: #5a7180; --pal-6: #5a7180; --pal-7: #5a7180; --pal-8: #5a7180;
+  --zone-2: #5a7180;
+  --zone-grad: #536f82;
+  --r-pill: 999px;
+  --r-md: 10px;
+  --r-lg: 12px;
+  --sans: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", Consolas, monospace;
+}
+:root[data-theme="dark"] {
+  --bg: #20242b;
+  --surface: #282e37;
+  --ink: #d9dfe6;
+  --muted: #a7b0bb;
+  --line: #3b444f;
+  --accent: #9bafbd;
+  --accent-soft: #303943;
+  --on-accent: #20242b;
+  --code-bg: #242a32;
+  --code-ink: #d9dfe6;
+  --warn-bg: #373329;
+  --warn-ink: #d8c99f;
+  --green: #88a38f;
+  --now: #c2aa70;
+  --t-lang: #a6b3bd;
+  --t-lib: #a6b3bd;
+  --t-tool: #a6b3bd;
+  --t-topic: #a6b3bd;
+  --pal-1: #a6b3bd; --pal-2: #a6b3bd; --pal-3: #a6b3bd; --pal-4: #a6b3bd;
+  --pal-5: #a6b3bd; --pal-6: #a6b3bd; --pal-7: #a6b3bd; --pal-8: #a6b3bd;
+  --zone-2: #a6b3bd;
+  --zone-grad: #303943;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) {
+    --bg: #20242b;
+    --surface: #282e37;
+    --ink: #d9dfe6;
+    --muted: #a7b0bb;
+    --line: #3b444f;
+    --accent: #9bafbd;
+    --accent-soft: #303943;
+    --on-accent: #20242b;
+    --code-bg: #242a32;
+    --code-ink: #d9dfe6;
+    --warn-bg: #373329;
+    --warn-ink: #d8c99f;
+    --green: #88a38f;
+    --now: #c2aa70;
+    --t-lang: #a6b3bd;
+    --t-lib: #a6b3bd;
+    --t-tool: #a6b3bd;
+    --t-topic: #a6b3bd;
+    --pal-1: #a6b3bd; --pal-2: #a6b3bd; --pal-3: #a6b3bd; --pal-4: #a6b3bd;
+    --pal-5: #a6b3bd; --pal-6: #a6b3bd; --pal-7: #a6b3bd; --pal-8: #a6b3bd;
+    --zone-2: #a6b3bd;
+    --zone-grad: #303943;
+  }
+}
+body {
+  background: var(--bg);
+  font-family: var(--sans);
+  line-height: 1.65;
+}
+body::before, .deco, .progress-top, .glyphs, .term { display: none !important; }
+.wrap { max-width: 1120px; }
+.top { max-width: none; }
+.top h1 {
+  color: var(--ink);
+  background: none;
+  animation: none;
+  -webkit-text-fill-color: currentColor;
+  cursor: default;
+  user-select: auto;
+  font-size: clamp(1.65rem, 3vw, 2rem);
+  letter-spacing: 0;
+}
+.bar {
+  background: var(--surface);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  animation: none;
+  box-shadow: none;
+}
+.zone[aria-pressed="true"], .tab[aria-selected="true"] {
+  background: var(--accent-soft);
+  color: var(--ink);
+  border-color: var(--accent);
+  box-shadow: none;
+}
+.rgrid > .rcard.item, .sgrid > .snip.item { background-image: none; }
+.road-track > i::after, .r-bar > i::after { display: none; }
+.club {
+  background: var(--accent-soft);
+  background-image: none;
+  background-clip: border-box;
+  color: var(--muted);
+  -webkit-text-fill-color: currentColor;
+  border-radius: 4px;
+  padding: 1px 6px;
+}
+/* Keep navigation and cards in one quiet palette; use color mainly for progress. */
+.zone[data-zone] { --dot: var(--accent); }
+.zone[aria-pressed="true"] { background: var(--accent-soft); }
+.rgrid > .rcard.item[data-type],
+.rgrid > .rcard.item[data-type="lib"],
+.rgrid > .rcard.item[data-type="tool"],
+.rgrid > .rcard.item[data-type="topic"] { --c: var(--accent); }
+.cat { --sec: var(--accent); }
+.cat-head h2::before { background: var(--accent); }
+.list { border-top-color: var(--line); }
+.list .item:hover { background: var(--accent-soft); }
+.rail a { border-left-color: var(--line); }
+.rail .num, .tab .n {
+  background: var(--accent-soft);
+  color: var(--muted);
+}
+.tag:not(.win):not(.unix):not(.gone), .tag.win, .tag.unix {
+  color: var(--muted);
+  background: var(--accent-soft);
+  border-color: var(--line);
+}
+.rcard.complete, .rcard.learning { box-shadow: inset 0 0 0 1px var(--line); }
+.rcard.complete .r-mono {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.road-track > i, .r-bar > i { background: var(--accent); }
+.r-status.is-done { --st: var(--green); }
+.r-status.is-now { --st: var(--now); }
+@media (hover: hover) {
+  .rgrid > .rcard.item:hover, .sgrid > .snip.item:hover {
+    transform: none;
+  }
+}
+.r-status.is-now::before, .rcard.just-done, .rcard.just-done .r-mono,
+.btn.done, .chip.done, .pomo-toggle.done { animation: none !important; }
+.top {
+  max-width: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "title tools" "intro tools";
+  column-gap: 24px;
+  align-items: start;
+}
+.top h1 { grid-area: title; }
+.top > p { grid-area: intro; max-width: 76ch; }
+.top .hdr-tools {
+  grid-area: tools;
+  position: static;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 100%;
+}
+@media (max-width: 760px) {
+  .top {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "title" "intro" "tools";
+    row-gap: 10px;
+  }
+  .top .hdr-tools { justify-content: flex-start; }
+}
 </style>
 </head>
 <body>
-<div class="deco" aria-hidden="true"><i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i></div>
-<div class="progress-top" aria-hidden="true"></div>
 <div class="wrap">
-  <div class="glyphs" id="glyphs" aria-hidden="true">
-    <span style="--x:14px;--y:6px;--c:var(--pal-3);--r:-6deg;--d:0s"></span>
-    <span style="--x:150px;--y:0px;--c:var(--pal-4);--r:5deg;--d:-1.2s"></span>
-    <span style="--x:60px;--y:58px;--c:var(--pal-2);--r:3deg;--d:-2.4s"></span>
-    <span style="--x:190px;--y:66px;--c:var(--pal-5);--r:-4deg;--d:-3.3s"></span>
-    <span style="--x:20px;--y:108px;--c:var(--pal-1);--r:6deg;--d:-4.1s"></span>
-  </div>
   <div class="pomo" id="pomo">
     <button type="button" class="pomo-toggle" id="pomoToggle" aria-expanded="false" aria-label="Đồng hồ tập trung">
       <svg viewBox="0 0 24 24" width="17" height="17"><circle cx="12" cy="13" r="8.2"/><path d="M12 9v4l3 2M9.5 2.5h5"/></svg>
@@ -939,12 +1115,8 @@ html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + var(--bar-h) + 2
     </div>
   </dialog>
   <header class="top">
-    <h1>Khu lưu trữ cheatsheet</h1>
-    <p>Nơi gom mọi thứ liên quan đến việc học code. Mỗi khu có phần nội dung riêng, chọn khu ở thanh bên dưới.</p>
-    <div class="term" aria-hidden="true">
-      <span class="term-dots"><i></i><i></i><i></i></span>
-      <span class="term-line"><span class="term-ps" id="termPs"></span><span id="termTx"></span><i class="term-caret"></i></span>
-    </div>
+    <h1>Kho tài liệu code</h1>
+    <p>Tài liệu tra cứu Python, SQL, Git, dòng lệnh và lộ trình học mạng máy tính — sắp xếp gọn để học và thực hành.</p>
     <div class="hdr-tools">
       <button type="button" class="theme-btn" id="themeBtn" aria-label="Đổi giao diện sáng/tối" title="Đổi giao diện sáng/tối">
         <svg class="ic-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.6"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
@@ -3160,7 +3332,7 @@ No matching distribution found | Sai tên gói, hoặc gói chưa hỗ trợ b�
 
   var STAGES = [
     { name: 'Giai đoạn 1 · Nền tảng chung', desc: 'Công cụ căn bản và ngôn ngữ đầu tiên',
-      divider: 'Nhánh chính: web full-stack', items: [
+      divider: 'Nền tảng cho hướng quản trị và kỹ thuật mạng; Python hữu ích để tự động hóa', items: [
       { id: 'cli', abbr: '>_', type: 'tool', src: ['cx'], club: true, title: 'Dòng lệnh', hint: 'Cần cho mọi thứ phía sau',
         topics: ['Di chuyển giữa các thư mục', 'Tạo, xóa, di chuyển file', 'Chạy chương trình từ terminal'] },
       { id: 'git', abbr: 'Git', type: 'tool', src: ['cs', 'cx'], club: true, title: 'Git & GitHub', hint: 'Lưu lịch sử code, làm việc nhóm',
@@ -3168,19 +3340,21 @@ No matching distribution found | Sai tên gói, hoặc gói chưa hỗ trợ b�
       { id: 'python', abbr: 'Py', type: 'lang', src: ['cx'], club: true, title: 'Python (cơ bản)', hint: 'Ngôn ngữ lập trình đầu tiên', seed: true,
         topics: ['Biến và kiểu dữ liệu', 'Điều kiện và vòng lặp', 'Hàm', 'List và dictionary', 'Class và object'] }
     ]},
-    { name: 'Giai đoạn 2 · Mạng máy tính', desc: 'Hiểu máy tính nói chuyện với nhau thế nào: nền tảng cho web, server và an ninh mạng', divider: 'Nhánh hạ tầng — học song song với Python hoặc ngay sau giai đoạn 1', items: [
+    { name: 'Giai đoạn 2 · Nền tảng mạng máy tính', desc: 'Xây nền tảng vững về TCP/IP, địa chỉ, thiết bị và xử lý sự cố trước khi học mạng doanh nghiệp chuyên sâu', divider: 'Lộ trình mạng chính bắt đầu tại đây; các giai đoạn 3–9 là nhánh bổ trợ tùy nhu cầu', items: [
       { id: 'netbasic', abbr: 'Net', type: 'topic', src: ['ext'], title: 'Mạng máy tính cơ bản', hint: 'Bắt đầu từ đây: các khái niệm nền tảng của mọi mạng',
-        topics: ['Mạng LAN, WAN và Internet', 'Mô hình OSI và TCP/IP', 'Switch, router, modem, access point', 'Địa chỉ MAC và địa chỉ IP', 'Client, server và cách một trang web được tải về'] },
+        topics: ['Mạng LAN, WAN, MAN, Internet và mô hình client–server', 'Mô hình OSI 7 lớp và TCP/IP: đóng gói, giải đóng gói dữ liệu', 'Ethernet, Wi-Fi, frame, MTU và địa chỉ MAC', 'Switch, router, modem/ONT, access point và firewall khác nhau thế nào', 'Unicast, broadcast, multicast; collision domain và broadcast domain', 'Đọc sơ đồ mạng đơn giản và lần theo đường đi của một gói tin'] },
       { id: 'ipsub', abbr: 'IP', type: 'topic', src: ['ext'], title: 'Địa chỉ IP và chia mạng con', hint: 'Phần cần luyện tay nhiều nhất của môn mạng',
-        topics: ['IPv4 và IPv6', 'Subnet mask và CIDR (ví dụ /24)', 'Chia mạng con (subnetting)', 'IP riêng, IP công cộng và NAT', 'Gateway mặc định'] },
+        topics: ['IPv4, IPv6 và cách đọc địa chỉ hexadecimal', 'Subnet mask, CIDR, network address, broadcast address và dải host', 'Tính subnet, số mạng con và số host; luyện VLSM', 'IP riêng, IP công cộng, NAT/PAT và bảng ARP', 'Default gateway, route table và kiểm tra địa chỉ trùng lặp', 'Thực hành lập kế hoạch địa chỉ IP cho một văn phòng'] },
       { id: 'proto', abbr: 'Pr', type: 'topic', src: ['ext'], title: 'Các giao thức phổ biến', hint: 'Mỗi dịch vụ trên mạng đều chạy bằng một giao thức',
-        topics: ['TCP và UDP, cổng (port)', 'HTTP và HTTPS', 'DNS: đổi tên miền thành IP', 'DHCP: tự cấp địa chỉ IP', 'SSH, FTP và SMTP'] },
+        topics: ['TCP handshake, UDP, port, socket và cách đọc bảng kết nối', 'DNS: bản ghi A/AAAA, CNAME, MX; truy vấn đệ quy và phân giải tên', 'DHCP: DORA, lease, reservation và relay', 'HTTP/HTTPS, TLS, chứng chỉ và các mã trạng thái thường gặp', 'SSH, NTP, SNMP, SMTP và nguyên tắc chọn giao thức truyền file an toàn', 'Dùng nslookup/dig và curl để kiểm tra dịch vụ theo từng lớp'] },
       { id: 'nettools', abbr: 'Ws', type: 'tool', src: ['ext'], title: 'Công cụ kiểm tra mạng', hint: 'Dùng ngay trên terminal, gắn với bài Dòng lệnh ở giai đoạn 1',
-        topics: ['ping và tracert (traceroute)', 'ipconfig (Windows) hoặc ifconfig/ip (Linux)', 'nslookup và dig', 'netstat: xem các kết nối đang mở', 'Wireshark: bắt và đọc gói tin'] },
+        topics: ['ipconfig, ip addr, ip route và arp: kiểm tra cấu hình máy', 'ping, tracert/traceroute và pathping: kiểm tra kết nối, độ trễ, mất gói', 'nslookup/dig, curl và Test-NetConnection: kiểm tra DNS, HTTP và port', 'netstat/ss: xem socket đang lắng nghe và kết nối đang mở', 'Wireshark/tcpdump: lọc, bắt và đọc DNS, TCP, DHCP, ICMP', 'Thực hành tìm lỗi theo thứ tự: link → IP → gateway → DNS → ứng dụng'] },
       { id: 'packet', abbr: 'PT', type: 'tool', src: ['ext'], title: 'Cisco Packet Tracer', hint: 'Dựng mạng ảo để thực hành, không cần thiết bị thật',
-        topics: ['Nối PC, switch và router', 'Đặt IP và cấu hình cơ bản bằng dòng lệnh', 'VLAN', 'Định tuyến tĩnh', 'Dự án: dựng mạng cho một văn phòng nhỏ'] },
+        topics: ['Dựng topology và phân biệt kết nối vật lý với kết nối logic', 'Cấu hình địa chỉ IP, subnet, gateway và kiểm tra bằng ping', 'Tạo VLAN, access port và trunk 802.1Q cơ bản', 'Cấu hình inter-VLAN routing và static route', 'Dự án: mạng văn phòng nhỏ có sơ đồ, bảng IP và kiểm thử kết nối'] },
+      { id: 'wireless', abbr: 'Wi-Fi', type: 'topic', src: ['ext'], title: 'Mạng không dây cơ bản', hint: 'Hiểu vùng phủ sóng, kênh Wi-Fi và bảo mật điểm truy cập',
+        topics: ['SSID, access point, controller và roaming', 'Băng tần 2.4/5/6 GHz, kênh, độ rộng kênh và nhiễu sóng', 'WPA2/WPA3, mã hóa và cấu hình Wi-Fi khách', 'Vị trí đặt AP, vùng phủ sóng và các nguyên nhân gây mất kết nối', 'Thực hành khảo sát Wi-Fi tại nhà/trường và đề xuất bố trí AP'] },
       { id: 'netsec', abbr: 'Sec', type: 'topic', src: ['ext'], title: 'An ninh mạng cơ bản', hint: 'Học sau khi đã hiểu cách mạng chạy',
-        topics: ['Firewall và quy tắc lọc gói tin', 'VPN', 'Mã hoá và chứng chỉ HTTPS/TLS', 'Các kiểu tấn công thường gặp: phishing, DDoS', 'Mật khẩu mạnh và xác thực hai lớp'] }
+        topics: ['Firewall stateful, rule allow/deny và nguyên tắc đặc quyền tối thiểu', 'Phân đoạn mạng, mạng khách và giới hạn truy cập giữa các vùng', 'VPN từ xa và site-to-site: mục đích, thành phần và xác thực', 'TLS, chứng chỉ số, MFA, cập nhật thiết bị và quản lý mật khẩu', 'Nhận biết phishing, quét cổng trái phép và dấu hiệu thiết bị nhiễm mã độc', 'Thực hành viết chính sách firewall an toàn trong môi trường lab'] }
     ]},
     { name: 'Giai đoạn 3 · Dữ liệu', desc: 'Từ Excel đến Python: thu thập, xử lý, thống kê và trực quan hoá dữ liệu', divider: 'Nhánh dữ liệu — học song song hoặc sau giai đoạn 1', items: [
       { id: 'excel', abbr: 'Xl', type: 'tool', src: ['ext'], title: 'Excel / Google Sheets', hint: 'Công cụ dữ liệu đầu tiên, không cần biết lập trình',
@@ -3270,21 +3444,25 @@ No matching distribution found | Sai tên gói, hoặc gói chưa hỗ trợ b�
       { id: 'lua', abbr: 'Lua', type: 'lang', src: ['cx'], club: true, title: 'Lua', hint: 'Nhẹ, hay dùng trong game',
         topics: ['Biến và điều khiển luồng', 'Bảng (table) và hàm', 'Object cơ bản'] }
     ]},
-    { name: 'Giai đoạn 10 · AI', desc: 'Toán nền tảng, học máy, deep learning và AI tạo sinh', divider: 'Nhánh AI — học sau khi vững nền tảng dữ liệu và lập trình', items: [
-      { id: 'math-ai', abbr: '∑', type: 'topic', src: ['ext'], title: 'Toán nền tảng cho Machine Learning', hint: 'Cần trước khi học sâu về học máy',
-        topics: ['Đại số tuyến tính: vector, ma trận', 'Xác suất thống kê nâng cao', 'Đạo hàm và gradient (giải tích cơ bản)'] },
-      { id: 'ml', abbr: 'ML', type: 'topic', src: ['cx'], club: true, title: 'Học máy', hint: 'Máy học từ dữ liệu',
-        topics: ['Hồi quy và phân loại', 'Chia tập train/test', 'Đánh giá mô hình', 'Thử với scikit-learn'] },
-      { id: 'dl', abbr: 'DL', type: 'topic', src: ['ext'], title: 'Deep Learning (mạng nơ-ron)', hint: 'Học sau khi vững Học máy cơ bản',
-        topics: ['Perceptron và mạng nơ-ron nhiều lớp', 'Lan truyền ngược (backpropagation)', 'PyTorch hoặc TensorFlow', 'Mạng CNN cho ảnh, RNN cho chuỗi'] },
-      { id: 'nlp', abbr: 'NLP', type: 'topic', src: ['ext'], title: 'Xử lý ngôn ngữ tự nhiên (NLP)', hint: 'Cho máy hiểu và xử lý văn bản',
-        topics: ['Tiền xử lý văn bản: tokenize, vector hoá', 'Mô hình phân loại văn bản', 'Kiến trúc Transformer'] },
-      { id: 'genai', abbr: 'GenAI', type: 'topic', src: ['cx'], club: true, title: 'Trí tuệ nhân tạo tạo sinh', hint: 'Generative AI',
-        topics: ['Mô hình ngôn ngữ lớn là gì', 'Viết prompt hiệu quả', 'Gọi mô hình qua API', 'Hạn chế và rủi ro'] },
-      { id: 'llmapp', abbr: 'LLM', type: 'lib', src: ['ext'], title: 'Xây dựng ứng dụng với LLM', hint: 'Dùng mô hình ngôn ngữ lớn để làm sản phẩm',
-        topics: ['LangChain hoặc framework tương tự', 'RAG: truy xuất dữ liệu để trả lời chính xác hơn', 'Fine-tuning cơ bản', 'Hugging Face: dùng mô hình có sẵn'] },
-      { id: 'mlops', abbr: 'Ops', type: 'topic', src: ['ext'], title: 'Triển khai và vận hành mô hình (MLOps)', hint: 'Đưa mô hình từ notebook ra sản phẩm thật',
-        topics: ['Đóng gói mô hình thành API', 'Theo dõi hiệu năng mô hình sau khi chạy thật', 'Quy trình huấn luyện lại khi có dữ liệu mới'] }
+    { name: 'Giai đoạn 10 · Mạng máy tính chuyên sâu', desc: 'Từ nền tảng TCP/IP đến thiết kế, cấu hình và vận hành mạng doanh nghiệp', divider: 'Nhánh chuyên sâu tiếp nối Giai đoạn 2; có thể bỏ qua các nhánh web, dữ liệu và sáng tạo nếu chỉ tập trung vào mạng', items: [
+      { id: 'switching', abbr: 'L2', type: 'topic', src: ['ext'], title: 'Switching và mạng LAN doanh nghiệp', hint: 'Mở rộng VLAN cơ bản thành mạng campus có dự phòng',
+        topics: ['Thiết kế VLAN theo phòng ban, access port và trunk 802.1Q', 'Native VLAN, allowed VLAN và xử lý lỗi trunk', 'STP/RSTP: root bridge, loop, port role và cơ chế hội tụ', 'EtherChannel/LACP và dự phòng đường uplink', 'Inter-VLAN routing bằng switch Layer 3 hoặc router-on-a-stick', 'Bảo vệ lớp 2: port security, DHCP snooping và BPDU Guard trong lab'] },
+      { id: 'routing', abbr: 'L3', type: 'topic', src: ['ext'], title: 'Routing IPv4/IPv6', hint: 'Nắm vững cách router chọn đường và trao đổi route',
+        topics: ['Đọc routing table, longest-prefix match và administrative distance', 'Static route, default route và route dự phòng', 'OSPF: neighbor, area, cost và kiểm tra trạng thái adjacency', 'BGP ở mức khái niệm: AS, prefix, peering và khi nào cần dùng', 'IPv6 addressing, SLAAC, DHCPv6 và định tuyến cơ bản', 'Thực hành phân tích route bị thiếu hoặc đường đi bất đối xứng'] },
+      { id: 'wanvpn', abbr: 'WAN', type: 'topic', src: ['ext'], title: 'WAN, NAT và VPN doanh nghiệp', hint: 'Kết nối chi nhánh và truy cập từ xa một cách có kiểm soát',
+        topics: ['Đường truyền leased line, broadband, Metro Ethernet và SD-WAN: khái niệm', 'NAT/PAT, static NAT và kiểm tra bảng dịch địa chỉ', 'VPN site-to-site và remote access; khái niệm IPsec và tunnel', 'Dự phòng kết nối WAN, failover và kiểm tra tính liên tục dịch vụ', 'QoS cơ bản: phân loại, ưu tiên và giới hạn lưu lượng', 'Dự án lab: nối hai chi nhánh, định tuyến và kiểm thử đường dự phòng'] },
+      { id: 'enterprise-wifi', abbr: 'RF', type: 'topic', src: ['ext'], title: 'Wi-Fi doanh nghiệp', hint: 'Thiết kế WLAN ổn định thay vì chỉ cấu hình một router gia đình',
+        topics: ['Nguyên lý RF: RSSI, SNR, channel overlap, roaming và airtime', 'Quy hoạch kênh và công suất cho 2.4/5/6 GHz', 'SSID, VLAN động, captive portal và mạng khách tách biệt', 'WPA2/WPA3-Enterprise và xác thực 802.1X/RADIUS ở mức cấu hình', 'Controller-based WLAN, quản lý AP và cập nhật firmware', 'Khảo sát vùng phủ, phát hiện nhiễu và lập báo cáo cải thiện Wi-Fi'] },
+      { id: 'linux-net', abbr: 'Linux', type: 'tool', src: ['ext'], title: 'Linux và dịch vụ hạ tầng mạng', hint: 'Quản trị máy chủ Linux phục vụ DNS, DHCP và giám sát',
+        topics: ['CLI Linux, quyền người dùng, systemd, journalctl và SSH an toàn', 'Network interface, route, DNS resolver và firewall host', 'Triển khai DNS caching và DHCP trong môi trường lab', 'NTP, syslog và phân giải tên nội bộ; ghi lại cấu hình dịch vụ', 'Kiểm tra socket, log và trạng thái dịch vụ khi có sự cố', 'Dùng máy ảo hoặc container để dựng lab riêng, không thử trên mạng thật'] },
+      { id: 'netauto', abbr: 'Auto', type: 'tool', src: ['ext'], title: 'Tự động hóa mạng', hint: 'Python, Git và Ansible giúp giảm thao tác lặp lại',
+        topics: ['Python nền tảng: biến, hàm, file, JSON/YAML và xử lý lỗi', 'Git để quản lý phiên bản cấu hình và tài liệu mạng', 'REST API, SSH và tự động thu thập trạng thái thiết bị trong lab', 'Ansible inventory, playbook và template cấu hình', 'Tạo bản sao lưu cấu hình, so sánh thay đổi và sinh báo cáo', 'Nguyên tắc an toàn: kiểm tra đầu vào, xem diff và duyệt trước khi áp dụng'] },
+      { id: 'netmonitor', abbr: 'NMS', type: 'topic', src: ['ext'], title: 'Giám sát và xử lý sự cố', hint: 'Theo dõi mạng chủ động và chẩn đoán theo bằng chứng',
+        topics: ['SNMP, syslog, NetFlow/IPFIX: mục đích và dữ liệu thu thập', 'Độ trễ, jitter, mất gói, throughput và baseline hiệu năng', 'Wireshark/tcpdump: bộ lọc display/capture và phân tích handshake', 'Giám sát thiết bị, cảnh báo dung lượng cổng và trạng thái đường truyền', 'Quy trình xử lý sự cố: xác định phạm vi, giả thuyết, kiểm chứng, ghi log', 'Viết sơ đồ mạng, bảng IP, nhật ký thay đổi và báo cáo sau sự cố'] },
+      { id: 'netdesign', abbr: 'HA', type: 'topic', src: ['ext'], title: 'Thiết kế mạng sẵn sàng cao và bảo mật', hint: 'Thiết kế có dự phòng, phân vùng và nguyên tắc vận hành an toàn',
+        topics: ['Redundancy ở link, switch, router và gateway; khái niệm VRRP/HSRP', 'Phân đoạn mạng bằng VLAN, subnet, ACL và firewall zone', 'AAA, RADIUS/TACACS+, phân quyền quản trị và MFA', 'Quản lý thiết bị: cấu hình chuẩn, backup, firmware và quyền truy cập', 'Capacity planning, sơ đồ vật lý/logic, bảng cổng và kế hoạch địa chỉ IP', 'Đánh đổi giữa chi phí, khả năng mở rộng, hiệu năng và độ sẵn sàng'] },
+      { id: 'netcapstone', abbr: '★', type: 'topic', src: ['ext'], title: 'Dự án cuối nhánh: mạng doanh nghiệp nhiều chi nhánh', hint: 'Gộp switching, routing, dịch vụ, bảo mật và giám sát vào một lab',
+        topics: ['Lập yêu cầu, sơ đồ topology, bảng VLAN/subnet và danh sách thiết bị', 'Dựng lab bằng Packet Tracer; có thể nâng cao với GNS3 hoặc EVE-NG', 'Cấu hình VLAN, trunk, STP, routing, DHCP/DNS và Wi-Fi khách', 'Thêm ACL, VPN mô phỏng, quản trị SSH và ghi log tập trung', 'Kiểm tra kết nối, dự phòng, phân giải DNS và tình huống lỗi có kiểm soát', 'Nộp sơ đồ, file cấu hình, bằng chứng kiểm thử và hướng dẫn khôi phục'] }
     ]}
   ];
 
@@ -3455,7 +3633,6 @@ No matching distribution found | Sai tên gói, hoặc gói chưa hỗ trợ b�
       card.classList.toggle('learning', learning);
       if (complete && !wasComplete && card.isConnected) {
         card.classList.add('just-done');
-        burst(mono);
         setTimeout(function () { card.classList.remove('just-done'); }, 800);
       }
       mono.textContent = complete ? '\u2713' : it.abbr;
@@ -7833,9 +8010,10 @@ No matching distribution found | Sai tên gói, hoặc gói chưa hỗ trợ b�
   }
   function groupsVisible(z) { return !!z.showGroups || z.groups.length > 1; }
 
-  state.zone = ZONES[0].id;
-  state.group = ZONES[0].groups[0].id;
-  state.tab = ZONES[0].groups[0].tabs[0];
+  var defaultZone = zoneDef('road');
+  state.zone = defaultZone.id;
+  state.group = defaultZone.groups[0].id;
+  state.tab = defaultZone.groups[0].tabs[0];
   state.zoneGroup = {};
   state.groupTab = {};
   ZONES.forEach(function (z) {
@@ -7871,7 +8049,6 @@ No matching distribution found | Sai tên gói, hoặc gói chưa hỗ trợ b�
       buildGroups();
       buildTabs();
       renderTab();
-      playSwap();
       window.scrollTo({ top: 0, behavior: 'instant' });
     });
     zonesEl.appendChild(zb);
@@ -7896,7 +8073,6 @@ No matching distribution found | Sai tên gói, hoặc gói chưa hỗ trợ b�
         buildGroups();
         buildTabs();
         renderTab();
-        playSwap();
         window.scrollTo({ top: 0, behavior: 'instant' });
       });
       groupsEl.appendChild(b);
@@ -7919,67 +8095,11 @@ No matching distribution found | Sai tên gói, hoặc gói chưa hỗ trợ b�
         state.tab = def.id;
         state.groupTab[g.id] = def.id;
         renderTab();
-        playSwap();
         window.scrollTo({ top: 0, behavior: 'instant' });
       });
       tabsEl.appendChild(b);
     });
     tabsEl.hidden = g.tabs.length < 2;
-  }
-
-  var reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
-  function playSwap() {
-    if (reduceMotion.matches || !main.animate) return;
-    main.animate(
-      [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }],
-      { duration: 240, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
-    );
-  }
-
-  var GLYPHS = {
-    py: ['def', '{ }', 'import', '[ ]', 'pip'],
-    sql: ['SELECT', 'JOIN', 'WHERE', 'COUNT(*)', 'GROUP BY'],
-    road: ['HTML', 'CSS', 'JS', 'React', 'Git'],
-    cli: ['git', 'cd', 'push', '# md', 'ls']
-  };
-  var glyphEl = $('glyphs'), glyphZone = '';
-  function setGlyphs(zone) {
-    if (!glyphEl || zone === glyphZone) return;
-    var first = !glyphZone;
-    glyphZone = zone;
-    var words = GLYPHS[zone] || GLYPHS.py;
-    [].forEach.call(glyphEl.children, function (sp, i) {
-      sp.textContent = words[i] || '';
-      if (first) return;
-      sp.classList.remove('in');
-      void sp.offsetWidth;
-      sp.style.setProperty('--k', (i * 0.06) + 's');
-      sp.classList.add('in');
-    });
-  }
-
-  var BURST_COLORS = ['#f472b6', '#a78bfa', '#60a5fa', '#4ade80', '#fbbf24', '#fb923c'];
-  function burst(anchor) {
-    if (reduceMotion.matches || !document.body.animate) return;
-    var r = anchor.getBoundingClientRect();
-    var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    for (var i = 0; i < 22; i++) {
-      var p = document.createElement('i');
-      p.className = 'confetti';
-      p.style.background = BURST_COLORS[i % BURST_COLORS.length];
-      p.style.borderRadius = i % 3 === 0 ? '50%' : '2px';
-      p.style.left = cx + 'px';
-      p.style.top = cy + 'px';
-      document.body.appendChild(p);
-      var ang = Math.random() * Math.PI * 2, dist = 50 + Math.random() * 90;
-      var dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist - 30;
-      var a = p.animate([
-        { transform: 'translate(0, 0) rotate(0deg) scale(1)', opacity: 1 },
-        { transform: 'translate(' + dx + 'px, ' + dy + 'px) rotate(' + (Math.random() * 540 - 270) + 'deg) scale(1)', opacity: 1, offset: 0.6 },
-        { transform: 'translate(' + (dx * 1.1) + 'px, ' + (dy + 60) + 'px) rotate(' + (Math.random() * 720 - 360) + 'deg) scale(0.6)', opacity: 0 }
-      ], { duration: 850 + Math.random() * 350, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
-      a.onfinish = (function (el) { return function () { el.remove(); }; })(p);
-    }
   }
 
   function renderTab() {
@@ -8009,7 +8129,6 @@ No matching distribution found | Sai tên gói, hoặc gói chưa hỗ trợ b�
     main.setAttribute('aria-labelledby', 'tab-' + state.tab);
     var zdef = zoneDef(state.zone);
     document.documentElement.dataset.zone = zdef.id;
-    setGlyphs(zdef.id);
     var gdef = groupDef(zdef, state.group);
     blurbEl.textContent = (groupsVisible(zdef) && gdef.blurb) ? gdef.blurb : zdef.blurb;
     blurbEl.hidden = !blurbEl.textContent;
@@ -8192,148 +8311,6 @@ No matching distribution found | Sai tên gói, hoặc gói chưa hỗ trợ b�
 })();
 </script>
 <script>
-/* ================= Trang trí thêm: gõ lệnh, ký hiệu bay, ánh sao theo chuột ================= */
-(function () {
-  'use strict';
-  var root = document.documentElement;
-  var motion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
-  function still() { return motion.matches; }
-
-  /* 1. Dòng lệnh gõ chữ, đổi theo khu */
-  var SNIPS = {
-    py: [['>>>', 'print("Xin chào, Python!")'], ['$', 'py -m pip install requests'], ['>>>', 'import os, json']],
-    sql: [['sqlite>', 'SELECT * FROM hoc_vien;'], ['sqlite>', 'SELECT COUNT(*) FROM bai_hoc;'], ['sqlite>', '.tables']],
-    road: [['$', 'git commit -m "xong thêm 1 bài"'], ['$', 'npm create vite@latest'], ['$', 'git push origin main']],
-    cli: [['$', 'cd Desktop/projects'], ['$', 'git commit -m "xong 1 bài"'], ['$', 'git push origin main'], ['$', 'echo "# README" > README.md'], ['$', 'git status']]
-  };
-  var psEl = document.getElementById('termPs'), txEl = document.getElementById('termTx');
-  var zone = '', run = 0, timer = 0;
-
-  function play(z) {
-    if (!psEl || !txEl) return;
-    var list = SNIPS[z] || SNIPS.py, token = ++run;
-    clearTimeout(timer);
-    if (still()) { psEl.textContent = list[0][0] + ' '; txEl.textContent = list[0][1]; return; }
-    function type(i, n) {
-      if (token !== run) return;
-      if (document.hidden) { timer = setTimeout(function () { type(i, n); }, 500); return; }
-      if (n === 0) psEl.textContent = list[i][0] + ' ';
-      txEl.textContent = list[i][1].slice(0, n);
-      if (n < list[i][1].length) timer = setTimeout(function () { type(i, n + 1); }, 38 + Math.random() * 55);
-      else timer = setTimeout(function () { erase(i, n); }, 2300);
-    }
-    function erase(i, n) {
-      if (token !== run) return;
-      txEl.textContent = list[i][1].slice(0, n);
-      if (n > 0) timer = setTimeout(function () { erase(i, n - 1); }, 16);
-      else timer = setTimeout(function () { type((i + 1) % list.length, 0); }, 350);
-    }
-    type(0, 0);
-  }
-
-  /* 2. Ký hiệu code bay lên ở nền */
-  var SYMS = {
-    py: ['def', 'import', '{ }', '[ ]', '( )', ':', '==', 'None', 'for', 'pip', '#', '>>>'],
-    sql: ['SELECT', 'FROM', 'JOIN', 'WHERE', '*', ';', 'COUNT', 'GROUP BY', '=', 'ON', 'AS', '( )'],
-    road: ['</>', 'HTML', 'CSS', '{ }', '=>', 'git', 'JS', '#', ';', '( )', 'npm', '.js'],
-    cli: ['$', 'git', 'commit', 'push', 'cd', '#', '**', '>', '[ ]', '.md', 'pull', '>_']
-  };
-  var deco = document.querySelector('.deco'), symEls = [];
-  if (deco) {
-    var box = document.createElement('div');
-    box.className = 'syms';
-    for (var i = 0; i < 14; i++) {
-      var b = document.createElement('b');
-      var t = 24 + Math.random() * 18;
-      b.className = 'sym';
-      b.style.setProperty('--x', (3 + i * 6.9 + Math.random() * 3).toFixed(1) + '%');
-      b.style.setProperty('--c', 'var(--pal-' + (1 + (i * 3) % 8) + ')');
-      b.style.setProperty('--s', (1.1 + Math.random() * 1).toFixed(2) + 'rem');
-      b.style.setProperty('--t', t.toFixed(1) + 's');
-      b.style.setProperty('--d', (-Math.random() * t).toFixed(1) + 's');
-      b.style.setProperty('--dx', Math.round((Math.random() - 0.5) * 90) + 'px');
-      b.style.setProperty('--o', (0.13 + Math.random() * 0.07).toFixed(2));
-      b.style.setProperty('--r0', Math.round(-20 + Math.random() * 20) + 'deg');
-      b.style.setProperty('--r1', Math.round(Math.random() * 30) + 'deg');
-      box.appendChild(b);
-      symEls.push(b);
-    }
-    deco.appendChild(box);
-  }
-  function setSyms(z) {
-    var words = SYMS[z] || SYMS.py;
-    symEls.forEach(function (b, i) { b.textContent = words[i % words.length]; });
-  }
-
-  /* đổi khu: gõ lệnh mới, đổi ký hiệu nền */
-  function onZone() {
-    var z = root.dataset.zone || 'py';
-    if (z === zone) return;
-    zone = z;
-    play(z);
-    setSyms(z);
-  }
-  if (window.MutationObserver) new MutationObserver(onZone).observe(root, { attributes: true, attributeFilter: ['data-zone'] });
-  onZone();
-
-  /* 3. Ánh sao theo con trỏ chuột (chỉ trên máy có chuột) */
-  var COLORS = ['#f472b6', '#a78bfa', '#60a5fa', '#4ade80', '#fbbf24', '#fb923c'];
-  var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  var lx = -999, ly = -999, live = 0;
-  if (fine) {
-    window.addEventListener('pointermove', function (e) {
-      if (still() || e.pointerType === 'touch' || !document.body.animate || live > 36) return;
-      var dx = e.clientX - lx, dy = e.clientY - ly;
-      if (dx * dx + dy * dy < 30 * 30) return;
-      lx = e.clientX; ly = e.clientY;
-      var size = 7 + Math.random() * 8;
-      var s = document.createElement('i');
-      s.className = 'spark';
-      s.style.width = s.style.height = size + 'px';
-      s.style.background = COLORS[(Math.random() * COLORS.length) | 0];
-      s.style.left = (lx - size / 2) + 'px';
-      s.style.top = (ly - size / 2) + 'px';
-      document.body.appendChild(s);
-      live++;
-      var drift = (Math.random() - 0.5) * 24;
-      var a = s.animate([
-        { transform: 'translate(0, 0) scale(0.2) rotate(0deg)', opacity: 0.95 },
-        { transform: 'translate(' + drift + 'px, 16px) scale(1) rotate(60deg)', opacity: 0.9, offset: 0.35 },
-        { transform: 'translate(' + (drift * 1.6) + 'px, 42px) scale(0) rotate(150deg)', opacity: 0 }
-      ], { duration: 650 + Math.random() * 300, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
-      var done = function () { if (s.parentNode) { s.remove(); live--; } };
-      a.onfinish = done;
-      a.oncancel = done;
-    }, { passive: true });
-  }
-
-  /* 4. Bấm vào tiêu đề: pháo giấy */
-  var h1 = document.querySelector('.top h1');
-  if (h1) {
-    h1.addEventListener('click', function (e) {
-      if (still() || !document.body.animate) return;
-      for (var i = 0; i < 26; i++) {
-        var p = document.createElement('i');
-        p.className = 'confetti';
-        p.style.background = COLORS[i % COLORS.length];
-        p.style.borderRadius = i % 3 === 0 ? '50%' : '2px';
-        p.style.left = e.clientX + 'px';
-        p.style.top = e.clientY + 'px';
-        document.body.appendChild(p);
-        var ang = Math.random() * Math.PI * 2, dist = 60 + Math.random() * 110;
-        var dx = Math.cos(ang) * dist, dy = Math.sin(ang) * dist - 40;
-        var a = p.animate([
-          { transform: 'translate(0, 0) rotate(0deg) scale(1)', opacity: 1 },
-          { transform: 'translate(' + dx + 'px, ' + dy + 'px) rotate(' + (Math.random() * 540 - 270) + 'deg) scale(1)', opacity: 1, offset: 0.6 },
-          { transform: 'translate(' + (dx * 1.1) + 'px, ' + (dy + 80) + 'px) rotate(' + (Math.random() * 720 - 360) + 'deg) scale(0.6)', opacity: 0 }
-        ], { duration: 900 + Math.random() * 400, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
-        a.onfinish = (function (n) { return function () { n.remove(); }; })(p);
-      }
-    });
-  }
-})();
-</script>
-<script>
 /* ================= Nút sáng/tối + Sao lưu/Khôi phục ================= */
 (function () {
   'use strict';
@@ -8346,7 +8323,7 @@ No matching distribution found | Sai tên gói, hoặc gói chưa hỗ trợ b�
     if (t === 'light' || t === 'dark') root.setAttribute('data-theme', t);
     else root.removeAttribute('data-theme');
   }
-  try { applyTheme(localStorage.getItem(THEME_KEY)); } catch (e) {}
+  try { applyTheme(localStorage.getItem(THEME_KEY)); } catch (e) { applyTheme('system'); }
   if (themeBtn) {
     themeBtn.addEventListener('click', function () {
       var mql = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
